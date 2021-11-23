@@ -31,5 +31,5 @@ module HibernateJava {
     requires java.sql;
     requires net.bytebuddy;
     requires com.sun.xml.bind;
-    //opens medium.erc to org.hibernate.orm.core;
+    opens grupoorbitais.equipeoorbitais.modelo to org.hibernate.orm.core;
 }
