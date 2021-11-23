@@ -4,13 +4,13 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "pessoa") //nome da tabela no bd
+@Table(name = "pessoa",  schema = "comum") //nome da tabela no bd
 public class Pessoa {
 	@Id
-	@GeneratedValue (strategy = GenerationType.IDENTITY) //os dados dessa chave serão criados pelo banco de dado
-	@SequenceGenerator(name = "pessoa", schema = "comum", sequenceName = "pessoa_seq", initialValue = 1)
+	@GeneratedValue (strategy = GenerationType.SEQUENCE, generator="pessoa_seq") //os dados dessa chave serão criados pelo banco de dado
+	@SequenceGenerator(name = "pessoa_seq", schema = "comum", sequenceName = "pessoa_seq", initialValue = 1)
 	@Column(name="id") //nome da coluna no bd
-	public int id;
+	private int id;
 	
 	@Column(name="nome")
 	private String nome;

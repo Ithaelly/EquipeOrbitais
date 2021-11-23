@@ -15,11 +15,11 @@ import javax.persistence.Table;
  * indicando que os objetos criados são entidades e devem ser persistidos.*/
 
 @Entity //define que essa classe é uma entidade a ser mapeada pela JPA
-@Table(name = "aluno") //nome da tabela no bd
+@Table(name = "aluno", schema = "graduacao") //nome da tabela no bd
 //DUVIDA: fica "graduacao.aluno" ou "aluno" no nome da tabela?
 public class Aluno {
 	@Id
-	@GeneratedValue (strategy = GenerationType.IDENTITY) //os dados dessa chave serão criados pelo banco de dado
+	@GeneratedValue (strategy = GenerationType.SEQUENCE, generator="aluno_seq") //os dados dessa chave serão criados pelo banco de dado
 	@SequenceGenerator(name = "aluno_seq", schema = "graduacao", sequenceName = "aluno_seq", initialValue = 1)
 	@Column(name="id") //nome da coluna no bd
 	private int id;
