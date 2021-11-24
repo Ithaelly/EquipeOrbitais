@@ -1,5 +1,6 @@
 package grupoorbitais.equipeoorbitais.controle;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import grupoorbitais.equipeoorbitais.modelo.Aluno;
@@ -19,9 +20,15 @@ public class MainEquipeOrbitais{
         PessoaDAO pessoaDAO = new PessoaDAO();
        // AlunoDAO alunoDAO = new AlunoDAO();
         
-		//variavéis das classes de modelo
+      //objetos das classes de modelo
+        Pessoa pessoa = new Pessoa();
+        //Aluno aluno = new Aluno();
+        
+		//variavéis e listas das classes de modelo
 		String nome, cpf, matricula;
-		int anoEntrada;
+		//int anoEntrada;
+		ArrayList<Pessoa> listarPessoas;
+        //ArrayList<Aluno> listarAlunos;
 
 		System.out.println("####  SEJA BEM VINDO!!!  ####");
 				
@@ -52,12 +59,13 @@ public class MainEquipeOrbitais{
 			            escolha1 = leia.nextInt();
 			            
 			            switch (escolha1){
-				            case 1:
-				            	System.out.println("Entrou na opção 1- Inserir");	 //inserir pessoa	            	
+			            	//Inserir pessoa	
+				            case 1: 
+				            	System.out.println("Entrou na opção 1- Inserir");	             	
 			                    System.out.println("Digite seu Nome: ");
 			                    nome = leia.nextLine();
 			                    nome = leia.nextLine(); //só p/ garantir q ele vai ler
-			                    System.out.println("Digite seu CPF com apenas números: ");
+			                    System.out.println("Digite seu CPF: ");
 			                    cpf = leia.nextLine();
 			                   
                                 if(!pessoaDAO.temCPFCadastrado(cpf)){//verifica se o cpf digitado é diferente de todos os que já tem cadastrado
@@ -74,15 +82,99 @@ public class MainEquipeOrbitais{
                                     	System.out.println("\nCPF JÁ POSSUI CADASTRO! \n");
                                 }
 				    	        break;
-				            case 2:    
-				            	System.out.println("Entrou na opção 2- Alterar"); //alterar pessoa
+				    	        
+				    	      //Alterar pessoa    
+				            case 2:   
+				            	System.out.println("Entrou na opção 2- Alterar"); 
+				            	System.out.println("Digite o CPF do usuário que deseja alterar: ");
+			                    cpf = leia.nextLine();
+			                    cpf = leia.nextLine();
+			                    
+			                    if(pessoaDAO.temCPFCadastrado(cpf)){ //verifica se o cpf digitado ta cadastrado no sistema	                    
+			                    	pessoa = pessoaDAO.procurarCPF(cpf); //procura o cpf e poem dentro do obj pessoa  
+
+			                    	System.out.println("\nDigite qual opção deseja alterar:");
+				                    System.out.println("1 - Nome: "+ pessoa.getNome());
+				                    System.out.println("2- CPF: " + pessoa.getCpf());
+				                    int escolha3 = leia.nextInt();
+				                    
+				                    switch (escolha3){
+						            	case 1:
+						            		System.out.println("\nDigite o novo Nome: ");
+						                    nome = leia.nextLine();
+						                    nome = leia.nextLine();
+						                    pessoa.setNome(nome);
+						                    break;
+						                    
+						            	case 2:
+						            		System.out.println("\nDigite o novo CPF: ");
+						                    cpf = leia.nextLine();
+						                    cpf = leia.nextLine();
+						                    pessoa.setCpf(cpf);
+						                    break;
+						                    
+						            	default: 
+						            		break;
+				                    }
+				                    
+				                    boolean resultado = pessoaDAO.alterar(pessoa); //retorna verdadeiro ou falso se consegui alterar o nome
+				    	
+		                    		if (resultado == true) {
+				                        System.out.println("\nNOME ALTERADO! \n");
+				                        System.out.println("-----------------------------");
+				                        System.out.println("Novos dados:");
+					                    System.out.println("Nome: "+ pessoa.getNome());
+					                    System.out.println("CPF: " + pessoa.getCpf());
+				                    } 
+				                    else {
+				                        System.out.println("\nNOME NÃO ALTERADO! \n");
+				                    }
+			                    }
+			                    else{
+                                	System.out.println("\nCPF NÃO ENCONTRADO NO SISTEMA! \n");
+			                    }
 				    	        break;
+				    	        
+				    	     //Remover pessoa    
 				            case 3:    
-				            	System.out.println("Entrou na opção 3 - Remover"); //remover pessoa
+				            	System.out.println("Entrou na opção 3 - Remover"); 
+				            	System.out.println("Digite o CPF do usuário que deseja remover: ");
+			                    cpf = leia.nextLine();
+			                    cpf = leia.nextLine();
+			                    
+			                    if(pessoaDAO.temCPFCadastrado(cpf)){ //verifica se o cpf digitado ta cadastrado no sistema	                    
+				                    	pessoa = pessoaDAO.procurarCPF(cpf); //procura o cpf e poem dentro do obj pessoa  
+				                    	
+				                    	/*QUANDO FIZER A CLASSE ALUNO TEM QUE VERIFICAR AQUI SE TEM ALGUM
+				                    	 * ALUNO RELACIONADO COM UMA PESSOA P/ SÓ ENTÃO REMOVER*/
+			                    	    
+					                    boolean resultado = pessoaDAO.remover(pessoa); //retorna verdadeiro ou falso se consegui remover o nome
+								    	
+			                    		if (resultado == true) {
+					                        System.out.println("\nUSUÁRIO REMOVIDO! \n");
+					                    } 
+					                    else {
+					                        System.out.println("\nUSUÁRIO NÃO REMOVIDO!! \n");
+					                    }
+			                    }
+			                    else{
+	                            	System.out.println("\nCPF NÃO ENCONTRADO NO SISTEMA! \n");
+			                    }
 				    	        break;
+				    	        
+				    	    //Listar pessoas    
 				            case 4:    
-				            	System.out.println("Entrou na opção 4 - Listar"); //listar pessoa
-				    	        break;
+				            	System.out.println("Entrou na opção 4 - Listar"); 
+				            	listarPessoas = pessoaDAO.listarPessoas(); //o arrayList listarPessoas vai receber a lista da função getPessoas
+                                
+				            	if(!(listarPessoas == null)){ //se a lista é diferente de vazio   			
+				            			System.out.println(listarPessoas.toString());
+                                }
+				            	else{
+                                    System.out.println("A lista está vazia!");
+                                }
+                                break;
+				    	        
 				            case 5:    
 				            	System.out.println("Voltando ao menu principal!");
 				    	        break;
@@ -126,6 +218,7 @@ public class MainEquipeOrbitais{
 	    		}
 	        case 3:    
 			        	System.out.println("Programa finalizado!");
+			        	pessoaDAO.fecharEntidade();
 				        break;
 		    default:
 		    			System.out.println("Opção invalida");

@@ -4,11 +4,11 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "pessoa",  schema = "comum") //nome da tabela no bd
+@Table(schema = "comum", name = "pessoa") //nome da tabela no bd
 public class Pessoa {
 	@Id
 	@GeneratedValue (strategy = GenerationType.SEQUENCE, generator="pessoa_seq") //os dados dessa chave serão criados pelo banco de dado
-	@SequenceGenerator(name = "pessoa_seq", schema = "comum", sequenceName = "pessoa_seq", initialValue = 1)
+	@SequenceGenerator(name = "pessoa_seq", schema = "comum", sequenceName = "pessoa_seq", allocationSize = 1)//initialValue = 1
 	@Column(name="id") //nome da coluna no bd
 	private int id;
 	
@@ -19,7 +19,7 @@ public class Pessoa {
 	private String cpf;
 	
 	//1 pessoa - N alunos
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "pessoa")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pessoa")
 	private List<Aluno> listarAlunos;
 
 	//CRIANDO CONSTRUTORES
@@ -71,8 +71,8 @@ public class Pessoa {
         this.listarAlunos = listarAlunos;
     } 
     
-   /* @Override
+   @Override
     public String toString() {
         return "Nome: " + nome + "\nCPF: " + cpf + "\n";
-    }*/
+    }
 }

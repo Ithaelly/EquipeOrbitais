@@ -1,5 +1,6 @@
 package grupoorbitais.equipeoorbitais.modelo;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,12 +16,12 @@ import javax.persistence.Table;
  * indicando que os objetos criados são entidades e devem ser persistidos.*/
 
 @Entity //define que essa classe é uma entidade a ser mapeada pela JPA
-@Table(name = "aluno", schema = "graduacao") //nome da tabela no bd
+@Table(schema = "graduacao", name = "aluno") //nome da tabela no bd
 //DUVIDA: fica "graduacao.aluno" ou "aluno" no nome da tabela?
 public class Aluno {
 	@Id
 	@GeneratedValue (strategy = GenerationType.SEQUENCE, generator="aluno_seq") //os dados dessa chave serão criados pelo banco de dado
-	@SequenceGenerator(name = "aluno_seq", schema = "graduacao", sequenceName = "aluno_seq", initialValue = 1)
+	@SequenceGenerator(name = "aluno_seq", schema = "graduacao", sequenceName = "aluno_seq", allocationSize = 1)
 	@Column(name="id") //nome da coluna no bd
 	private int id;
 	
@@ -33,7 +34,7 @@ public class Aluno {
 	//@Column(name="id_pessoa") 
 	//private int idPessoa;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinColumn(name = "id_pessoa")
 	private Pessoa pessoa;
 	
