@@ -17,7 +17,6 @@ import javax.persistence.Table;
 
 @Entity //define que essa classe é uma entidade a ser mapeada pela JPA
 @Table(schema = "graduacao", name = "aluno") //nome da tabela no bd
-//DUVIDA: fica "graduacao.aluno" ou "aluno" no nome da tabela?
 public class Aluno {
 	@Id
 	@GeneratedValue (strategy = GenerationType.SEQUENCE, generator="aluno_seq") //os dados dessa chave serão criados pelo banco de dado
@@ -31,9 +30,6 @@ public class Aluno {
 	@Column(name="ano_entrada")
 	private int anoEntrada;	
 	
-	//@Column(name="id_pessoa") 
-	//private int idPessoa;
-	
 	@ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinColumn(name = "id_pessoa")
 	private Pessoa pessoa;
@@ -42,14 +38,12 @@ public class Aluno {
 	public Aluno() {
 	}
 	
-	public Aluno(int id, String matricula, int anoEntrada) {
-		super();
-		this.id = id;
+	public Aluno(String matricula, int anoEntrada, Pessoa pessoa) {
 		this.matricula = matricula;
 		this.anoEntrada = anoEntrada;
+		this.pessoa = pessoa;
 	}
-	
-	
+
 	//CRIANDO GETS E SETS
 	public int getId() {
 		return id;
@@ -71,14 +65,23 @@ public class Aluno {
 		return anoEntrada;
 	}
 	
-	public void setAno_Entrada(int anoEntrada) {
+	public void setAnoEntrada(int anoEntrada) {
 		this.anoEntrada = anoEntrada;
 	}
 	
-	/*@Override
+	public Pessoa getPessoa() {
+		return pessoa;
+	}
+
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
+	}
+	
+	@Override
     public String toString() {
-        return "Pessoa relacionada com o respectivo (Nome, CPF): " + pessoa.getNome() + ", " + pessoa.getCpf() +
-                "\nMatrícula: " + matricula + "\nAno de entrada: " + anoEntrada + "\n";
-    }*/
+        return "Matrícula: " + matricula + "\nId pessoa: " + pessoa.getId() + "\nAno de entrada: " + anoEntrada + "\n";
+    }
+	
+	/*"\nNome: " + pessoa.getNome() + "\nCPF:  " + pessoa.getCpf()*/
 }
 

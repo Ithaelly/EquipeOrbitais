@@ -44,11 +44,11 @@ public class PessoaDAO {
 
 		try {
 			entityManager.getTransaction().begin();
-			StringBuilder queryBuilder = new StringBuilder(); // obj da classe q permite criar e manipular dados de Strings dinâmicamente
+			StringBuilder consulta = new StringBuilder(); // obj da classe q permite criar e manipular dados de Strings dinâmicamente
 			
 			// fazendo a consulta do bd: SELECT * FROM comum.pessoa WHERE cpf=  '103.300.023-90';
-			queryBuilder.append("SELECT * FROM comum.pessoa ").append("WHERE cpf = '").append(cpf).append("'"); // fazendo a consulta do bd																											
-			Query query = (Query) entityManager.createNativeQuery(queryBuilder.toString(), Pessoa.class); // Criando uma instância do Query para execução a consulta SQL feita em cima na queryBuilder, que vai acessar o toString da classe Pessoa  para isso
+			consulta.append("SELECT * FROM comum.pessoa ").append("WHERE cpf = '").append(cpf).append("'"); // fazendo a consulta do bd																											
+			Query query = (Query) entityManager.createNativeQuery(consulta.toString(), Pessoa.class); // Criando uma instância do Query para execução a consulta SQL feita em cima na consulta, que vai acessar o toString da classe Pessoa  para isso
 			listarPessoas = (List) query.getResultList(); // o resultado da consulta do bd vai para o ArrayList "listar  pessoa"
 			entityManager.getTransaction().commit();
 		} 
@@ -71,9 +71,9 @@ public class PessoaDAO {
 		ArrayList<Pessoa> listarPessoas;
 		try {
 			entityManager.getTransaction().begin();
-			StringBuilder queryBuilder = new StringBuilder(); //criando um objeto do construtor String
-			queryBuilder.append("SELECT * FROM comum.pessoa ");
-			Query query = (Query) entityManager.createNativeQuery(queryBuilder.toString(), Pessoa.class);
+			StringBuilder consulta = new StringBuilder(); //criando um objeto do construtor String
+			consulta.append("SELECT * FROM comum.pessoa ");
+			Query query = (Query) entityManager.createNativeQuery(consulta.toString(), Pessoa.class);
 			listarPessoas = (ArrayList<Pessoa>) query.getResultList();
 			entityManager.getTransaction().commit();
 		} 

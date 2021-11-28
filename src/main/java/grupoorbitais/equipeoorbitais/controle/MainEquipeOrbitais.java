@@ -18,17 +18,17 @@ public class MainEquipeOrbitais{
 		
 		//objetos das classes de controle
         PessoaDAO pessoaDAO = new PessoaDAO();
-       // AlunoDAO alunoDAO = new AlunoDAO();
+        AlunoDAO alunoDAO = new AlunoDAO();
         
       //objetos das classes de modelo
         Pessoa pessoa = new Pessoa();
-        //Aluno aluno = new Aluno();
+        Aluno aluno = new Aluno();
         
 		//variavéis e listas das classes de modelo
 		String nome, cpf, matricula;
-		//int anoEntrada;
+		int anoEntrada;
 		ArrayList<Pessoa> listarPessoas;
-        //ArrayList<Aluno> listarAlunos;
+        ArrayList<Aluno> listarAlunos;
 
 		System.out.println("####  SEJA BEM VINDO!!!  ####");
 				
@@ -165,10 +165,14 @@ public class MainEquipeOrbitais{
 				    	    //Listar pessoas    
 				            case 4:    
 				            	System.out.println("Entrou na opção 4 - Listar"); 
-				            	listarPessoas = pessoaDAO.listarPessoas(); //o arrayList listarPessoas vai receber a lista da função getPessoas
+				            	listarPessoas = pessoaDAO.listarPessoas(); //o arrayList listarPessoas vai receber a lista da função listarPessoas
                                 
-				            	if(!(listarPessoas == null)){ //se a lista é diferente de vazio   			
-				            			System.out.println(listarPessoas.toString());
+				            	if(!(listarPessoas == null)){ //se a lista é diferente de vazio   	
+				            		System.out.println(" \n    PESSOAS CADASTRADAS   ");
+				            			System.out.println("-----------------------------\n");
+					            		for (Pessoa objPessoa : listarPessoas) {
+	                                        System.out.println(objPessoa);
+	                                    }
                                 }
 				            	else{
                                     System.out.println("A lista está vazia!");
@@ -197,18 +201,66 @@ public class MainEquipeOrbitais{
 			            escolha2 = leia.nextInt();
 			            
 			            switch (escolha2){
-				            case 1:
-				            	System.out.println("Entrou na opção 1- Inserir");
+			            	//Inserir aluno	
+				            case 1: 
+				            	System.out.println("Entrou na opção 1- Inserir");	             	
+			                    System.out.println("Digite seu Matrícula: ");
+			                    matricula = leia.nextLine();
+			                    matricula = leia.nextLine(); //só p/ garantir q ele vai ler
+			                    System.out.println("Digite seu Ano de Entrada: ");
+			                    anoEntrada = leia.nextInt();
+			                   
+	                            if(!alunoDAO.temMatriculaCadastrada(matricula)){//verifica se a matricula digitada é diferente de todos os que já tem cadastradas            	
+					                    System.out.println("Digite seu CPF da pessoa relacionada a essa matricula: ");
+					                    cpf = leia.nextLine();
+					                    cpf = leia.nextLine();
+					                    /*System.out.println("Digite o nome do pessoa: ");
+					                    nome = leia.nextLine();*/
+				                   
+	                                if(pessoaDAO.temCPFCadastrado(cpf)){//verifica se o cpf digitado  já tem cadastrado
+			                                nome = pessoa.getNome();	
+		                                	pessoa = new Pessoa(nome, cpf);
+	                            	
+		                                	
+		                                	Aluno novoAluno = new Aluno(matricula, anoEntrada, pessoa);
+						                    boolean resultado = alunoDAO.adicionar(novoAluno); //vai retornar verdadeiro ou falso para se conseguiu adicionar
+						                    
+						                    if (resultado == true) {
+						                        System.out.println("\nALUNO CADASTRADO! \n");// o \n é p/ pular uma linha antes e outra depois
+						                    } else {
+						                        System.out.println("\nALUNO NÃO CADASTRADO! \n");
+						                    }
+	                                }
+	                            }
+	                            else{
+	                                	System.out.println("\nMATRÍCULA JÁ POSSUI CADASTRO! \n");
+	                            }
 				    	        break;
+				    	        
 				            case 2:    
 				            	System.out.println("Entrou na opção 2- Alterar");
 				    	        break;
 				            case 3:    
 				            	System.out.println("Entrou na opção 3 - Remover");
 				    	        break;
+				    	        
+				    	     //Listar alunos
 				            case 4:    
-				            	System.out.println("Entrou na opção 4 - Listar");
-				    	        break;
+	                                System.out.println("Entrou na opção 4 - Listar"); 
+					            	listarAlunos = alunoDAO.listarAlunos(); //o arrayList listarAlunos vai receber a lista da função listarAlunos
+	                                
+					            	if(!(listarAlunos == null)){ //se a lista é diferente de vazio   	
+					            		System.out.println(" \n    ALUNOS CADASTRADOS   ");
+					            			System.out.println("-----------------------------\n");
+						            		for (Aluno objAluno : listarAlunos) {
+		                                        System.out.println(objAluno);
+		                                    }
+	                                }
+					            	else{
+	                                    System.out.println("A lista está vazia!");
+	                                }
+	                                break;
+					    	        
 				            case 5:    
 				            	System.out.println("Voltando ao menu principal!");
 				    	        break;
