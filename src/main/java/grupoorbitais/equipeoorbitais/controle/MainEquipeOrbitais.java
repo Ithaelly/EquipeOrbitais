@@ -209,31 +209,31 @@ public class MainEquipeOrbitais{
 			                    matricula = leia.nextLine(); //só p/ garantir q ele vai ler
 			                    System.out.println("Digite seu Ano de Entrada: ");
 			                    anoEntrada = leia.nextInt();
-			                   
-	                            if(!alunoDAO.temMatriculaCadastrada(matricula)){//verifica se a matricula digitada é diferente de todos os que já tem cadastradas            	
-					                    System.out.println("Digite seu CPF da pessoa relacionada a essa matricula: ");
-					                    cpf = leia.nextLine();
-					                    cpf = leia.nextLine();
-				                   
-	                                if(pessoaDAO.temCPFCadastrado(cpf)){//verifica se o cpf digitado  já tem cadastrado
-			                                nome = pessoa.getNome();	
-			                                idPessoa = pessoa.getId();
-		                                	pessoa = new Pessoa(cpf, nome, idPessoa);
-	                            	
-		                                	
-		                                	Aluno novoAluno = new Aluno(matricula, anoEntrada, pessoa);
-						                    boolean resultado = alunoDAO.adicionar(novoAluno); //vai retornar verdadeiro ou falso para se conseguiu adicionar
-						                    		
-						                    if (resultado == true) {
-						                        System.out.println("\nALUNO CADASTRADO! \n");// o \n é p/ pular uma linha antes e outra depois
-						                    } else {	
-						                        System.out.println("\nALUNO NÃO CADASTRADO! \n");
-						                    }
-	                                }
-	                            }
-	                            else{
-	                                	System.out.println("\nMATRÍCULA JÁ POSSUI CADASTRO! \n");
-	                            }
+						                    
+			                    if(!alunoDAO.temMatriculaCadastrada(matricula)){
+				                    	System.out.println("Digite seu CPF da pessoa relacionada a essa matricula: ");
+				                    	cpf = leia.nextLine();
+				                    	cpf = leia.nextLine();
+	
+				                    	//Consulta a pessoa que será associada ao aluno a partir do seu CPF
+				                    	Pessoa pessoaAluno = pessoaDAO.procurarCPF(cpf);
+	
+				                    	//Caso não exista uma pessoa cadastrada com o CPF informado
+				                    	if(pessoaAluno == null){ 
+				                    		System.out.println("\nCPF NÃO ENCONTRADO! Por favor, informe seu nome para cadastro: \n");
+				                    		nome = leia.nextLine();			                    		
+				                    		pessoaAluno = new Pessoa(nome, cpf);
+				                    	}
+	
+				                    	Aluno novoAluno = new Aluno(matricula, anoEntrada, pessoaAluno);
+				                    	boolean resultado = alunoDAO.adicionar(novoAluno); //vai retornar verdadeiro ou falso para se conseguiu adicionar            	
+				                    				
+				                    	if (resultado == true) {
+				                    		System.out.println("\nALUNO CADASTRADO! \n");// o \n é p/ pular uma linha antes e outra depois
+				                    	} else {	
+				                    		System.out.println("\nALUNO NÃO CADASTRADO! \n");
+				                    	}
+			                    }
 				    	        break;
 				    	        
 				            case 2:    

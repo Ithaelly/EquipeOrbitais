@@ -23,7 +23,8 @@ public class AlunoDAO {
 		// Criando transações para efetuar operações com EntityManager
 		try {
 			entityManager.getTransaction().begin(); // inicar a operação p/ fazer a inserção
-			entityManager.persist(aluno);
+			entityManager.detach(aluno.getPessoa());
+			entityManager.persist(aluno);			
 			entityManager.getTransaction().commit(); // comitando a transação
 			resultado = true;
 		} finally {
@@ -32,6 +33,7 @@ public class AlunoDAO {
 				resultado = false;
 			}
 		}
+		
 		return resultado;
 	}
 	

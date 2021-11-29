@@ -36,6 +36,7 @@ public class PessoaDAO {
 				resultado = false;
 			}
 		}
+		
 		return resultado;
 	}
 
@@ -60,7 +61,9 @@ public class PessoaDAO {
 		if (listarPessoas.isEmpty()) { // se tiver vazio
 			return null;
 		}
-		return (Pessoa) (listarPessoas.get(0));
+		Pessoa pessoa = (Pessoa) listarPessoas.get(0);
+		entityManager.detach(pessoa);
+		return pessoa;
 	}
 
 	public boolean temCPFCadastrado(String cpf) {
@@ -124,5 +127,10 @@ public class PessoaDAO {
 	public void fecharEntidade() {
 		entityManager.close();
 		factory.close();
+	}
+
+	public void detach(Pessoa pessoaAluno) {
+		// TODO Auto-generated method stub
+		
 	}
 }
