@@ -80,4 +80,9 @@ public class AlunoDAO {
 		}
 		return listarAlunos;
 	}
+	
+	public void fecharEntidade() {
+		entityManager.close();
+		factory.close();
+	}
 }

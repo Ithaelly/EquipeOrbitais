@@ -26,10 +26,10 @@ public class Pessoa {
 	public Pessoa() {
 	}
 	
-	public Pessoa(int id, String nome, String cpf) {
-		this.id = id;
-		this.nome = nome;
+	public Pessoa(String cpf, String nome, int id) {
 		this.cpf = cpf;
+		this.nome = nome;
+		this.id = id;
 	}
 	
 	public Pessoa(String nome, String cpf) {

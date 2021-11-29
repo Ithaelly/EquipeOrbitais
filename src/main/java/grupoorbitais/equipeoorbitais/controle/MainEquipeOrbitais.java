@@ -26,7 +26,7 @@ public class MainEquipeOrbitais{
         
 		//variavéis e listas das classes de modelo
 		String nome, cpf, matricula;
-		int anoEntrada;
+		int anoEntrada, idPessoa;
 		ArrayList<Pessoa> listarPessoas;
         ArrayList<Aluno> listarAlunos;
 
@@ -214,20 +214,19 @@ public class MainEquipeOrbitais{
 					                    System.out.println("Digite seu CPF da pessoa relacionada a essa matricula: ");
 					                    cpf = leia.nextLine();
 					                    cpf = leia.nextLine();
-					                    /*System.out.println("Digite o nome do pessoa: ");
-					                    nome = leia.nextLine();*/
 				                   
 	                                if(pessoaDAO.temCPFCadastrado(cpf)){//verifica se o cpf digitado  já tem cadastrado
 			                                nome = pessoa.getNome();	
-		                                	pessoa = new Pessoa(nome, cpf);
+			                                idPessoa = pessoa.getId();
+		                                	pessoa = new Pessoa(cpf, nome, idPessoa);
 	                            	
 		                                	
 		                                	Aluno novoAluno = new Aluno(matricula, anoEntrada, pessoa);
 						                    boolean resultado = alunoDAO.adicionar(novoAluno); //vai retornar verdadeiro ou falso para se conseguiu adicionar
-						                    
+						                    		
 						                    if (resultado == true) {
 						                        System.out.println("\nALUNO CADASTRADO! \n");// o \n é p/ pular uma linha antes e outra depois
-						                    } else {
+						                    } else {	
 						                        System.out.println("\nALUNO NÃO CADASTRADO! \n");
 						                    }
 	                                }
@@ -271,6 +270,7 @@ public class MainEquipeOrbitais{
 	        case 3:    
 			        	System.out.println("Programa finalizado!");
 			        	pessoaDAO.fecharEntidade();
+			        	alunoDAO.fecharEntidade();
 				        break;
 		    default:
 		    			System.out.println("Opção invalida");
