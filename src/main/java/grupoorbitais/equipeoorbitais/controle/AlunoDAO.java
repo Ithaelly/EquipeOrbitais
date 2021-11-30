@@ -83,6 +83,42 @@ public class AlunoDAO {
 		return listarAlunos;
 	}
 	
+	public boolean alterar(Aluno aluno) {
+		boolean resultado;
+
+		try {
+			entityManager.getTransaction().begin(); // inicar a operação p/ fazer a alteração
+			entityManager.merge(aluno);
+			entityManager.getTransaction().commit();
+			resultado = true;
+		} 
+		finally {
+			if (entityManager.getTransaction().isActive()) {
+				entityManager.getTransaction().rollback();
+				resultado = false;
+			}
+		}
+		return resultado;
+	}
+	
+	public boolean remover(Aluno aluno) {
+		boolean resultado;
+		
+		try {
+			entityManager.getTransaction().begin();
+			entityManager.remove(aluno);
+			entityManager.getTransaction().commit();
+			resultado = true;
+		} 
+		finally {
+			if (entityManager.getTransaction().isActive()) {
+				entityManager.getTransaction().rollback();
+				resultado = false;
+			}
+		}
+		return resultado;
+	}
+	
 	public void fecharEntidade() {
 		entityManager.close();
 		factory.close();

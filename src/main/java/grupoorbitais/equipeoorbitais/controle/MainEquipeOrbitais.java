@@ -120,14 +120,14 @@ public class MainEquipeOrbitais{
 				                    boolean resultado = pessoaDAO.alterar(pessoa); //retorna verdadeiro ou falso se consegui alterar o nome
 				    	
 		                    		if (resultado == true) {
-				                        System.out.println("\nNOME ALTERADO! \n");
+				                        System.out.println("\nDADO ALTERADO! \n");
 				                        System.out.println("-----------------------------");
 				                        System.out.println("Novos dados:");
 					                    System.out.println("Nome: "+ pessoa.getNome());
 					                    System.out.println("CPF: " + pessoa.getCpf());
 				                    } 
 				                    else {
-				                        System.out.println("\nNOME NÃO ALTERADO! \n");
+				                        System.out.println("\nDADO NÃO ALTERADO! \n");
 				                    }
 			                    }
 			                    else{
@@ -235,13 +235,83 @@ public class MainEquipeOrbitais{
 				                    	}
 			                    }
 				    	        break;
+				    	      
+				    	    //Alterar pessoa    
+				            case 2:   
+				            	System.out.println("Entrou na opção 2- Alterar"); 
+				            	System.out.println("Digite a Matricula do aluno que deseja alterar: ");
+			                    matricula = leia.nextLine();
+			                    matricula = leia.nextLine();
+			                    
+			                    if(alunoDAO.temMatriculaCadastrada(matricula)){ //verifica se a matricula digitada ta cadastrado no sistema	                    
+			                    	aluno = alunoDAO.procurarMatricula(matricula); //procura a matricula e poem dentro do obj aluno
+
+			                    	System.out.println("\nDigite qual opção deseja alterar:");
+				                    System.out.println("1 - Matricula: "+ aluno.getMatricula());
+				                    System.out.println("2- Ano de entrada: " + aluno.getAnoEntrada());
+				                    int escolha4 = leia.nextInt();
+				                    
+				                    switch (escolha4){
+						            	case 1:
+						            		System.out.println("\nDigite a nova Matricula: ");
+						                    matricula = leia.nextLine();
+						                    matricula = leia.nextLine();
+						                    aluno.setMatricula(matricula);
+						                    break;
+						                    
+						            	case 2:
+						            		System.out.println("\nDigite o novo Ano de entrada: ");
+						            		anoEntrada = leia.nextInt();
+						            		anoEntrada = leia.nextInt();
+						            		aluno.setAnoEntrada(anoEntrada);
+						                    break;
+						                    
+						            	default: 
+						            		break;
+				                    }
+				                    
+				                    boolean resultado = alunoDAO.alterar(aluno); //retorna verdadeiro ou falso se consegui alterar
+				    	
+		                    		if (resultado == true) {
+				                        System.out.println("\nDADO ALTERADO! \n");
+				                        System.out.println("-----------------------------");
+				                        System.out.println("Novos dados:");
+					                    System.out.println("Matricula: "+ aluno.getMatricula());
+					                    System.out.println("no de entrada: " + aluno.getAnoEntrada());
+				                    } 
+				                    else {
+				                        System.out.println("\nDADO NÃO ALTERADO! \n");
+				                    }
+			                    }
+			                    else{
+                                	System.out.println("\nMATRICULA NÃO ENCONTRADA NO SISTEMA! \n");
+			                    }
+				    	        break;
+				    	
 				    	        
-				            case 2:    
-				            	System.out.println("Entrou na opção 2- Alterar");
-				    	        break;
+				    	    //remover    
 				            case 3:    
-				            	System.out.println("Entrou na opção 3 - Remover");
-				    	        break;
+				            	System.out.println("Entrou na opção 3 - Remover"); 
+				            	System.out.println("Digite a Matricula do aluno que deseja remover: ");
+			                    matricula = leia.nextLine();
+			                    matricula = leia.nextLine();
+			                    
+			                    if(alunoDAO.temMatriculaCadastrada(matricula)){ //verifica se a matricula digitada ta cadastrado no sistema	                    
+				                    	aluno = alunoDAO.procurarMatricula(matricula); //procura a matricula e poem dentro do obj aluno
+			                    	    
+					                    boolean resultado = alunoDAO.remover(aluno); //retorna verdadeiro ou falso se consegui remover o aluno
+								    	
+			                    		if (resultado == true) {
+					                        System.out.println("\nUSUÁRIO REMOVIDO! \n");
+					                    } 
+					                    else {
+					                        System.out.println("\nUSUÁRIO NÃO REMOVIDO!! \n");
+					                    }
+				                    }
+				                    else{
+		                            	System.out.println("\nMATRICULA NÃO ENCONTRADA NO SISTEMA! \n");
+				                    }
+					    	        break;
 				    	        
 				    	     //Listar alunos
 				            case 4:    
