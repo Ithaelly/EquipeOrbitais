@@ -79,9 +79,7 @@ public class Aluno {
 	
 	@Override
     public String toString() {
-        return "Matrícula: " + matricula + "\nId pessoa: " + pessoa.getId() + "\nAno de entrada: " + anoEntrada + "\n";
+        return "Matrícula: " + matricula + "\nAno de entrada: " + anoEntrada + "\nId pessoa: " + pessoa.getId()  + "\nNome: " + pessoa.getNome() + "\nCPF:  " + pessoa.getCpf()+ "\n";
     }
-	
-	/*"\nNome: " + pessoa.getNome() + "\nCPF:  " + pessoa.getCpf()*/
 }
 

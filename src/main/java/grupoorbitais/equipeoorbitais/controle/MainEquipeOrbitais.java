@@ -26,7 +26,7 @@ public class MainEquipeOrbitais{
         
 		//variavéis e listas das classes de modelo
 		String nome, cpf, matricula;
-		int anoEntrada, idPessoa;
+		int anoEntrada;
 		ArrayList<Pessoa> listarPessoas;
         ArrayList<Aluno> listarAlunos;
 
@@ -145,17 +145,19 @@ public class MainEquipeOrbitais{
 			                    if(pessoaDAO.temCPFCadastrado(cpf)){ //verifica se o cpf digitado ta cadastrado no sistema	                    
 				                    	pessoa = pessoaDAO.procurarCPF(cpf); //procura o cpf e poem dentro do obj pessoa  
 				                    	
-				                    	/*QUANDO FIZER A CLASSE ALUNO TEM QUE VERIFICAR AQUI SE TEM ALGUM
-				                    	 * ALUNO RELACIONADO COM UMA PESSOA P/ SÓ ENTÃO REMOVER*/
-			                    	    
-					                    boolean resultado = pessoaDAO.remover(pessoa); //retorna verdadeiro ou falso se consegui remover o nome
-								    	
-			                    		if (resultado == true) {
-					                        System.out.println("\nUSUÁRIO REMOVIDO! \n");
-					                    } 
-					                    else {
-					                        System.out.println("\nUSUÁRIO NÃO REMOVIDO!! \n");
-					                    }
+	                                if(pessoa.getAlunos() != null)  {  //se não tem nenhum aluno associado a pessoa ele entra no if
+						                    boolean resultado = pessoaDAO.remover(pessoa); //retorna verdadeiro ou falso se consegui remover o nome
+									    	
+				                    		if (resultado == true) {
+						                        System.out.println("\nUSUÁRIO REMOVIDO! \n");
+						                    } 
+						                    else {
+						                        System.out.println("\nUSUÁRIO NÃO REMOVIDO!! \n");
+						                    }
+	                                   }
+	                                else {
+	                                	 System.out.println("\nPESSOA TEM ALUNO RELACIONADO A ELE, PORTANTO, NÃO PODE SER REMOVIDO!! \n");
+	                                }
 			                    }
 			                    else{
 	                            	System.out.println("\nCPF NÃO ENCONTRADO NO SISTEMA! \n");
@@ -184,6 +186,7 @@ public class MainEquipeOrbitais{
 				    	        break;
 				    	    default:
 				    	    	System.out.println("Opção invalida");
+				    	    	break;
 			    	    }
 	    		}
 	        case 2:  
@@ -262,13 +265,13 @@ public class MainEquipeOrbitais{
 						            	case 2:
 						            		System.out.println("\nDigite o novo Ano de entrada: ");
 						            		anoEntrada = leia.nextInt();
-						            		anoEntrada = leia.nextInt();
 						            		aluno.setAnoEntrada(anoEntrada);
 						                    break;
 						                    
 						            	default: 
 						            		break;
 				                    }
+				                    aluno.getPessoa().getCpf();
 				                    
 				                    boolean resultado = alunoDAO.alterar(aluno); //retorna verdadeiro ou falso se consegui alterar
 				    	
@@ -277,7 +280,7 @@ public class MainEquipeOrbitais{
 				                        System.out.println("-----------------------------");
 				                        System.out.println("Novos dados:");
 					                    System.out.println("Matricula: "+ aluno.getMatricula());
-					                    System.out.println("no de entrada: " + aluno.getAnoEntrada());
+					                    System.out.println("Ano de entrada: " + aluno.getAnoEntrada());
 				                    } 
 				                    else {
 				                        System.out.println("\nDADO NÃO ALTERADO! \n");
@@ -333,6 +336,7 @@ public class MainEquipeOrbitais{
 				            case 5:    
 				            	System.out.println("Voltando ao menu principal!");
 				    	        break;
+				    	        
 				    	    default:
 				    	    	System.out.println("Opção invalida");
 			            }

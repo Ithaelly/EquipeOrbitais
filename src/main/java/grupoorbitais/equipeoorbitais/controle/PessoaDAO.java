@@ -111,6 +111,7 @@ public class PessoaDAO {
 		
 		try {
 			entityManager.getTransaction().begin();
+			pessoa = entityManager.merge(pessoa);
 			entityManager.remove(pessoa);
 			entityManager.getTransaction().commit();
 			resultado = true;
