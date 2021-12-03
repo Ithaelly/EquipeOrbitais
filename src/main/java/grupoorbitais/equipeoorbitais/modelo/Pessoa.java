@@ -1,6 +1,8 @@
 package grupoorbitais.equipeoorbitais.modelo;
 
 import javax.persistence.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -20,7 +22,7 @@ public class Pessoa {
 	
 	//1 pessoa - N alunos
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pessoa")
-	private List<Aluno> listarAlunos;
+	private List<Aluno> listarAlunos = new ArrayList<>();
 
 	//CRIANDO CONSTRUTORES
 	public Pessoa() {
@@ -63,15 +65,15 @@ public class Pessoa {
 		this.cpf = cpf;
 	}
     
-    public List<Aluno> getAlunos() {
-        return listarAlunos;
-    }
+   public List<Aluno> getListarAlunos() {
+		return listarAlunos;
+	}
 
-    public void setAlunos(List<Aluno> listarAlunos) {
-        this.listarAlunos = listarAlunos;
-    } 
-    
-   @Override
+	public void setListarAlunos(List<Aluno> listarAlunos) {
+		this.listarAlunos = listarAlunos;
+	}
+
+@Override
     public String toString() {
         return "Nome: " + nome + "\nCPF: " + cpf + "\n";
     }

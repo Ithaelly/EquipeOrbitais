@@ -145,7 +145,7 @@ public class MainEquipeOrbitais{
 			                    if(pessoaDAO.temCPFCadastrado(cpf)){ //verifica se o cpf digitado ta cadastrado no sistema	                    
 				                    	pessoa = pessoaDAO.procurarCPF(cpf); //procura o cpf e poem dentro do obj pessoa  
 				                    	
-	                                if(pessoa.getAlunos() != null)  {  //se não tem nenhum aluno associado a pessoa ele entra no if
+	                                if(pessoa.getListarAlunos() == null || pessoa.getListarAlunos().isEmpty())  {  //se não tem nenhum aluno associado a pessoa ele entra no if
 						                    boolean resultado = pessoaDAO.remover(pessoa); //retorna verdadeiro ou falso se consegui remover o nome
 									    	
 				                    		if (resultado == true) {
