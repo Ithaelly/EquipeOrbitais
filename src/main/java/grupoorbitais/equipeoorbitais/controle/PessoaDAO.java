@@ -26,6 +26,8 @@ public class PessoaDAO {
 
 		// Criando transações para efetuar operações com EntityManager
 		try {
+			EntityManager entityManager = factory.createEntityManager(); 
+			System.out.println(entityManager.isOpen());
 			entityManager.getTransaction().begin(); // inicar a operação p/ fazer a inserção
 			entityManager.persist(pessoa);
 			entityManager.getTransaction().commit(); // comitando a transação
@@ -44,6 +46,8 @@ public class PessoaDAO {
 		List listarPessoas;
 
 		try {
+			EntityManager entityManager = factory.createEntityManager(); 
+			System.out.println(entityManager.isOpen());
 			entityManager.getTransaction().begin();
 			StringBuilder consulta = new StringBuilder(); // obj da classe q permite criar e manipular dados de Strings dinâmicamente
 			
@@ -73,6 +77,8 @@ public class PessoaDAO {
 	public ArrayList<Pessoa> listarPessoas() {
 		ArrayList<Pessoa> listarPessoas;
 		try {
+			EntityManager entityManager = factory.createEntityManager(); 
+			System.out.println(entityManager.isOpen());
 			entityManager.getTransaction().begin();
 			StringBuilder consulta = new StringBuilder(); //criando um objeto do construtor String
 			consulta.append("SELECT * FROM comum.pessoa ");
@@ -92,6 +98,8 @@ public class PessoaDAO {
 		boolean resultado;
 
 		try {
+			EntityManager entityManager = factory.createEntityManager(); 
+			System.out.println(entityManager.isOpen());
 			entityManager.getTransaction().begin(); // inicar a operação p/ fazer a alteração
 			entityManager.merge(pessoa);
 			entityManager.getTransaction().commit();
@@ -110,6 +118,8 @@ public class PessoaDAO {
 		boolean resultado;
 		
 		try {
+			EntityManager entityManager = factory.createEntityManager(); 
+			System.out.println(entityManager.isOpen());
 			entityManager.getTransaction().begin();
 			pessoa = entityManager.merge(pessoa);
 			entityManager.remove(pessoa);

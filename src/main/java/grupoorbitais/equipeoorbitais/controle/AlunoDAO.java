@@ -22,6 +22,8 @@ public class AlunoDAO {
 
 		// Criando transações para efetuar operações com EntityManager
 		try {
+			EntityManager entityManager = factory.createEntityManager(); 
+			System.out.println(entityManager.isOpen());
 			entityManager.getTransaction().begin(); // inicar a operação p/ fazer a inserção
 			entityManager.detach(aluno.getPessoa());
 			entityManager.persist(aluno);			
@@ -41,6 +43,8 @@ public class AlunoDAO {
 		List listarAlunos;
 
 		try {
+			EntityManager entityManager = factory.createEntityManager(); 
+			System.out.println(entityManager.isOpen());
 			entityManager.getTransaction().begin();
 			StringBuilder consulta = new StringBuilder(); // obj da classe q permite criar e manipular dados de Strings dinâmicamente
 			
@@ -68,6 +72,8 @@ public class AlunoDAO {
 	public ArrayList<Aluno> listarAlunos() {
 		ArrayList<Aluno> listarAlunos;
 		try {
+			EntityManager entityManager = factory.createEntityManager(); 
+			System.out.println(entityManager.isOpen());
 			entityManager.getTransaction().begin();
 			StringBuilder consulta = new StringBuilder();
 			consulta.append("SELECT * FROM graduacao.aluno ");
@@ -87,6 +93,8 @@ public class AlunoDAO {
 		boolean resultado;
 
 		try {
+			EntityManager entityManager = factory.createEntityManager(); 
+			System.out.println(entityManager.isOpen());
 			entityManager.getTransaction().begin(); // inicar a operação p/ fazer a alteração
 			entityManager.merge(aluno);
 			entityManager.getTransaction().commit();
@@ -105,6 +113,8 @@ public class AlunoDAO {
 		boolean resultado;
 		
 		try {
+			EntityManager entityManager = factory.createEntityManager(); 
+			System.out.println(entityManager.isOpen());
 			entityManager.getTransaction().begin();
 			entityManager.remove(aluno);
 			entityManager.getTransaction().commit();

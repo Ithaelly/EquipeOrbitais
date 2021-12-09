@@ -21,7 +21,7 @@ public class Pessoa {
 	private String cpf;
 	
 	//1 pessoa - N alunos
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pessoa")
+	@OneToMany(fetch = FetchType.EAGER , mappedBy = "pessoa")
 	private List<Aluno> listarAlunos = new ArrayList<>();
 
 	//CRIANDO CONSTRUTORES

@@ -145,8 +145,8 @@ public class MainEquipeOrbitais{
 			                    if(pessoaDAO.temCPFCadastrado(cpf)){ //verifica se o cpf digitado ta cadastrado no sistema	                    
 				                    	pessoa = pessoaDAO.procurarCPF(cpf); //procura o cpf e poem dentro do obj pessoa  
 				                    	
-	                                if(pessoa.getListarAlunos() == null || pessoa.getListarAlunos().isEmpty())  {  //se não tem nenhum aluno associado a pessoa ele entra no if
-						                    boolean resultado = pessoaDAO.remover(pessoa); //retorna verdadeiro ou falso se consegui remover o nome
+	                               if(pessoa.getListarAlunos() == null || pessoa.getListarAlunos().isEmpty())  {  //se não tem nenhum aluno associado a pessoa ele entra no if
+				                    		boolean resultado = pessoaDAO.remover(pessoa); //retorna verdadeiro ou falso se consegui remover o nome
 									    	
 				                    		if (resultado == true) {
 						                        System.out.println("\nUSUÁRIO REMOVIDO! \n");
@@ -183,12 +183,15 @@ public class MainEquipeOrbitais{
 				    	        
 				            case 5:    
 				            	System.out.println("Voltando ao menu principal!");
+				            	escolha1= 5;
 				    	        break;
+				    	        
 				    	    default:
 				    	    	System.out.println("Opção invalida");
 				    	    	break;
 			    	    }
 	    		}
+	    		break;
 	        case 2:  
 	        	int escolha2=6;
 	    		while(escolha2 !=5) {
@@ -341,6 +344,7 @@ public class MainEquipeOrbitais{
 				    	    	System.out.println("Opção invalida");
 			            }
 	    		}
+	    		break;
 	        case 3:    
 			        	System.out.println("Programa finalizado!");
 			        	pessoaDAO.fecharEntidade();
