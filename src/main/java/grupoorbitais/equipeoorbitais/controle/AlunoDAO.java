@@ -116,6 +116,7 @@ public class AlunoDAO {
 			EntityManager entityManager = factory.createEntityManager(); 
 			System.out.println(entityManager.isOpen());
 			entityManager.getTransaction().begin();
+			aluno = entityManager.merge(aluno);
 			entityManager.remove(aluno);
 			entityManager.getTransaction().commit();
 			resultado = true;
